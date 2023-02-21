@@ -5,7 +5,7 @@
         <div class="flex">
           <p class="word-title">會員註冊</p>
           <p class="word-title-r">已經註冊</p>
-          <q-btn class="sin" color="deep-orange-5" label="登入" />
+          <q-btn class="sin" color="deep-orange-5" label="登入" to="/login" />
         </div>
         <hr>
         <div class="q-pa-md">
@@ -50,7 +50,7 @@
 } */
 .bgc {
   width: 100%;
-  height: 88.6vh;
+  height: 93.9vh;
   background-color: rgb(176, 176, 176);
 }
 

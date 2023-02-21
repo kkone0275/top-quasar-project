@@ -1,7 +1,7 @@
 <template>
   <q-page class="bg">
     <div class="container">
-    <h6 style="font-weight: 600;">消費者訂單紀錄</h6>
+    <h6 style="font-weight: 600;">參與揪團紀錄</h6>
       <!-- list -->
       <div style="max-width: 100%">
         <div class="q-pa-md q-gutter-md">

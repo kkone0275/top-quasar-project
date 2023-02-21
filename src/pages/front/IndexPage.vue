@@ -10,6 +10,8 @@
   <img class="video" src="../../images/video.png" alt="video">
   <img class="persons" src="../../images/persons.png" alt="persons">
   <img class="cream" src="../../images/cream.png" alt="cream">
+  <img class="calendar" src="../../images/calendar.png" alt="calendar">
+  <img class="eat" src="../../images/eat.png" alt="eat">
   <p class="word01">享受生活</p>
   <p class="word03">看見你的需求</p>
   <div class="title01">
@@ -224,11 +226,26 @@
 }
 .cream{
   width: 200px;
-    position: absolute;
-    top: 56%;
-    right: 12%;
-    z-index: 1;
-    rotate: calc(10deg);
+  position: absolute;
+  top: 56%;
+  right: 12%;
+  z-index: 1;
+  rotate: calc(10deg);
+}
+
+.calendar{
+  width: 75px;
+  position: absolute;
+  top: 16%;
+  left: 4%;
+  rotate: calc(-25deg);
+}
+.eat{
+  width: 70px;
+  position: absolute;
+  top: 16%;
+  right: 4%;
+  rotate: calc(-30deg);
 }
 </style>
 
