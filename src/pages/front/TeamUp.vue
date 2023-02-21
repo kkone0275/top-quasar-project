@@ -1,16 +1,28 @@
 <template>
   <h2 class="title01">組團揪夥</h2>
   <h5 class="smtitle03">活動地區:</h5>
-  <div class="q-gutter-sm chose">
+  <!-- <div class="q-gutter-sm chose">
     <q-btn class="col-12" v-for="gang,index in categories" rounded color="amber-7"
     :key="index" :label="gang" @click="gangActive=gang" />
-  </div>
+  </div> -->
+
+  <q-btn-dropdown class="black chose" color="amber-8" label="選 擇 城 市">
+      <q-list>
+        <q-item clickable v-close-popup v-for="gang,index in categories" :key="index" @click="gangActive=gang">
+          <q-item-section>
+            <q-item-label>{{ gang }}</q-item-label>
+          </q-item-section>
+        </q-item>
+    </q-list>
+  </q-btn-dropdown>
+
   <hr>
-<div class="flex set">
-  <div class="card" v-for="product in filterData" :key="product._id"  style="margin-top: 5rem;">
-    <ProductCard v-bind="product"/>
+
+  <div class="flex set">
+    <div class="card" v-for="product in filterData" :key="product._id" style="margin-top: 5rem;">
+      <ProductCard v-bind="product"/>
+    </div>
   </div>
-</div>
 
 </template>
 

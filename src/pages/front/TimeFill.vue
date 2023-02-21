@@ -1,9 +1,20 @@
 <template>
   <h2 class="title01">時間填空</h2>
   <h5 class="smtitle03">活動地區:</h5>
-  <div class="q-gutter-sm chose">
+  <!-- <div class="q-gutter-sm chose">
     <q-btn class="col-12" v-for="gang,index in categories" rounded color="amber-7"
     :key="index" :label="gang" @click="gangActive=gang" />
+  </div> -->
+  <div class="chose">
+  <q-btn-dropdown class="black" color="amber-8" label="選 擇 城 市">
+    <q-list>
+      <q-item clickable v-close-popup v-for="gang,index in categories" :key="index" @click="gangActive=gang">
+        <q-item-section>
+          <q-item-label>{{ gang }}</q-item-label>
+        </q-item-section>
+      </q-item>
+    </q-list>
+  </q-btn-dropdown>
   </div>
   <hr>
 <div class="flex set">
@@ -78,10 +89,13 @@ hr{
 .card{
   margin-left: 2%;
 }
-
 .chose{
   position: absolute;
   top: 186px;
   left: 16%;
+}
+
+.black{
+  color: black;
 }
 </style>

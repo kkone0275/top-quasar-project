@@ -1,39 +1,44 @@
 <template>
   <h5 class="text-center">填空上架</h5>
   <q-btn class="add" style="background: #F3A308; color: white" @click="openAdd(-1)" label="新增揪團" />
+
   <table class="box" style="width: 60%; " border="1">
-          <thead>
-            <tr align="left">
-              <th>圖片</th>
-              <th>名稱</th>
-              <th>管理</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(time, idx) in times" :key="time._id">
-              <!-- <td align="center">
-                <img :src="time.image" :aspect-ratio="1" :width="100" :height="100"
-                style="object-fit: cover; margin: auto;">
-              </td> -->
-              <td>{{ time.date }}</td>
-              <td>{{ time.name }}</td>
-              <td align="center">
-                <q-btn color="primary" icon="edit" @click="openAdd(idx)" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <thead>
+      <tr align="left">
+        <th>空閒時間</th>
+        <th>個人暱稱</th>
+        <th>活動地點</th>
+        <th>管理</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(time, idx) in times" :key="time._id">
+        <!-- <td align="center">
+          <img :src="time.image" :aspect-ratio="1" :width="100" :height="100"
+          style="object-fit: cover; margin: auto;">
+        </td> -->
+        <td>{{ time.date }}</td>
+        <td>{{ time.name }}</td>
+        <td>{{ time.category }}</td>
+        <td align="center">
+          <q-btn color="primary" icon="edit" @click="openAdd(idx)" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
   <div class="q-pa-md">
     <div class="row justify-center">
       <div class="col-12 col-md-1">
         <q-dialog v-model="form.dialog" persistent>
           <q-card style="max-width: 800px ">
             <div class="text-h6" align="center">{{ form._id.length > 0 ? '編輯揪團' : '新增揪團' }}</div>
+
             <q-form @submit="submit">
               <div class="flex row justify-between" style="padding: 16px 50px 16px 50px;">
-              <q-input class="col-12" style="padding:10px ;" filled v-model="form.name" label="活動名稱" lazy-rules :rules="[rules.required]"/>
+              <q-input class="col-12" style="padding:10px ;" filled v-model="form.name" label="個人暱稱" lazy-rules :rules="[rules.required]"/>
               <!-- <q-input class="col-12" style="padding:10px ;" filled v-model="form.price" label="活動價格" lazy-rules :rules="[rules.price]"/> -->
-              <q-input class="col-12" style="padding: 10px;" filled v-model="form.description" label="揪團活動說明"
+              <q-input class="col-12" style="padding: 10px;" filled v-model="form.description" label="空閒描述"
               clearable type="textarea" @keydown="processTextareaFill"
               @focus="processTextareaFill"
               :rules="[rules.required]"/>
@@ -60,7 +65,7 @@
                 </div> -->
 
       <q-card-section class="q-pt-none">
-        <q-input filled v-model="form.date">
+        <q-input filled v-model="form.date" :rules="[rules.required]">
           <template v-slot:prepend>
             <q-icon name="event" class="cursor-pointer">
               <q-popup-proxy
@@ -103,6 +108,8 @@
           </template>
         </q-input>
       </q-card-section>
+
+      <q-input class="col-6" style="padding:10px ;" filled v-model="form.hour" label="活動時數" lazy-rules :rules="[rules.required]"/>
 
               <q-select class="col-8" filled :options="categories" v-model="form.category" label="活動地點" :rules="[rules.required]" />
 
@@ -165,6 +172,7 @@ const form = reactive({
   _id: '',
   name: '',
   date: '',
+  hour: 0,
   description: '',
   sell: false,
   category: '',
@@ -179,6 +187,7 @@ const openAdd = (idx) => {
     form._id = ''
     form.name = ''
     form.date = ''
+    form.hour = 0
     form.description = ''
     form.category = ''
     form.valid = false
@@ -188,6 +197,7 @@ const openAdd = (idx) => {
     form._id = times[idx]._id
     form.name = times[idx].name
     form.date = times[idx].date
+    form.hour = times[idx].hour
     form.description = times[idx].description
     form.category = times[idx].category
     form.valid = false
@@ -202,6 +212,7 @@ const submit = async () => {
   const fd = new FormData()
   fd.append('name', form.name)
   fd.append('date', form.date)
+  fd.append('hour', form.hour)
   fd.append('description', form.description)
   fd.append('category', form.category)
 

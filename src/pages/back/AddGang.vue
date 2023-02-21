@@ -11,6 +11,7 @@
             <tr align="left">
               <th>圖片</th>
               <th>名稱</th>
+              <th>地點</th>
               <th>管理</th>
             </tr>
           </thead>
@@ -21,17 +22,17 @@
                 style="object-fit: cover; margin: auto;">
               </td>
               <td>{{ product.name }}</td>
+              <td>{{ product.category }}</td>
               <td align="center">
                 <q-btn color="primary" icon="edit" @click="openAdd(idx)" />
               </td>
             </tr>
           </tbody>
         </table>
-  <div class="q-pa-md">
+
     <div class="row justify-center">
-      <div class="col-12 col-md-1">
         <q-dialog v-model="form.dialog" persistent>
-          <q-card style="max-width: 800px ">
+          <q-card class="sumbitcard">
             <div class="text-h6" align="center">{{ form._id.length > 0 ? '編輯揪團' : '新增揪團' }}</div>
             <q-form @submit="submit">
               <div class="flex row justify-between" style="padding: 16px 50px 16px 50px;">
@@ -71,9 +72,8 @@
             </q-form>
           </q-card>
         </q-dialog>
-    </div>
   </div>
-</div>
+
 </template>
 
 <style scoped>
@@ -103,6 +103,9 @@
   position: absolute;
   top: 30%;
   left: 25%;
+}
+.sumbitcard{
+  width: 1200px;
 }
 </style>
 
