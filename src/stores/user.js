@@ -137,6 +137,43 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  async function addMember () {
+    if (token.value.length === 0) {
+      Swal.fire({
+        toast: true,
+        timer: 1000,
+        showConfirmButton: false,
+        background: '#F5ABA5',
+        icon: 'error',
+        color: 'black',
+        text: '請先登入！'
+      })
+      this.router.push('/login')
+      return
+    }
+    try {
+      const { data } = await apiAuth.post('/orders')
+      console.log(data)
+      // phone.value = data.result.phone
+      Notify.create({
+        type: 'positive',
+        color: 'pink',
+        message: '報名成功',
+        position: 'top'
+      })
+    } catch (error) {
+      Swal.fire({
+        toast: true,
+        timer: 1000,
+        showConfirmButton: false,
+        background: '#F5ABA5',
+        icon: 'error',
+        color: 'black',
+        text: error?.response?.data?.message || '報名錯誤！'
+      })
+    }
+  }
+
   return {
     token,
     account,
@@ -150,7 +187,8 @@ export const useUserStore = defineStore('user', () => {
     isAdmin,
     avatar,
     editCart,
-    checkout
+    checkout,
+    addMember
   }
 }, {
   persist: {

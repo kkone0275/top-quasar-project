@@ -17,13 +17,13 @@
   </q-btn-dropdown>
 
   <hr>
-
+  <div class="bgc">
   <div class="flex set">
     <div class="card" v-for="product in filterData" :key="product._id" style="margin-top: 5rem;">
       <ProductCard v-bind="product"/>
     </div>
   </div>
-
+  </div>
 </template>
 
 <script setup>
@@ -64,6 +64,12 @@ const filterData = computed(() => {
   flex: auto;
 }
 
+.bgc {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(226, 226, 226);
+}
+
 .title01{
   margin-top: 1%;
   margin-bottom: 1%;
@@ -82,6 +88,8 @@ const filterData = computed(() => {
 
 hr{
   border: 12px solid #FFE5B4;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 
 .set{

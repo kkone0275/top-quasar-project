@@ -16,14 +16,14 @@
           <q-item clickable v-ripple class="text-center" style="background: #fff;" v-for="order in orders" :key="order._id">
             <q-item-section>{{ order._id }}</q-item-section>
             <q-item-section>
-              {{ new Date(order.date).toLocaleDateString() }}
+              <!-- {{ new Date(order.date).toLocaleDateString() }} -->
             </q-item-section>
-            <q-item-section>{{ order.totalPrice }} 元</q-item-section>
+            <!-- <q-item-section>{{ order.totalPrice }} 元</q-item-section> -->
             <q-item-section>
               <ul>
-                <li v-for="product in order.products" :key="product._id">
-                {{ product.quantity + ' 組 ' + product.p_id.name }}
-              </li>
+              <!-- <li v-for="product in order.products" :key="product._id">
+              {{ product.quantity + ' 組 ' + product.p_id.name }}
+              </li> -->
               </ul>
             </q-item-section>
           </q-item>
@@ -34,26 +34,50 @@
 </template>
 
 <script setup>
+
+// import { reactive } from 'vue'
+// import { apiAuth } from '../../boot/axios.js'
+// import Swal from 'sweetalert2'
+// const orders = reactive([]);
+// (async () => {
+//   try {
+//     const { data } = await apiAuth.get('/orders/all')
+//     orders.push(...data.result.map(order => {
+//       order.totalPrice = order.products.reduce((total, current) => total + current.p_id.price * current.quantity, 0)
+//       return order
+//     }))
+//   } catch (error) {
+//     console.log(error)
+//     Swal.fire({
+//       icon: 'error',
+//       title: '失敗',
+//       text: '取得訂單失敗'
+//     })
+//   }
+// })()
+
+import { apiAuth } from 'src/boot/axios'
 import { reactive } from 'vue'
-import { apiAuth } from '../../boot/axios.js'
 import Swal from 'sweetalert2'
 const orders = reactive([]);
+
 (async () => {
   try {
     const { data } = await apiAuth.get('/orders/all')
-    orders.push(...data.result.map(order => {
-      order.totalPrice = order.products.reduce((total, current) => total + current.p_id.price * current.quantity, 0)
-      return order
-    }))
+    orders.push(...data.result)
   } catch (error) {
-    console.log(error)
     Swal.fire({
+      toast: true,
+      timer: 1000,
+      showConfirmButton: false,
+      background: '#F5ABA5',
       icon: 'error',
-      title: '失敗',
-      text: '取得訂單失敗'
+      color: 'black',
+      text: error?.response?.data?.message || '使用者資料錯誤！'
     })
   }
 })()
+
 </script>
 
 <style lang="scss">

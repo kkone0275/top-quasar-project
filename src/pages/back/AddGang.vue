@@ -1,5 +1,5 @@
 <template>
-  <h5 class="text-center">活動上架</h5>
+  <h5 class="text-center">揪團上架</h5>
   <q-btn class="add" style="background: #F3A308; color: white" @click="openAdd(-1)" label="新增揪團" />
 
   <div class="q-pa-md q-gutter-sm col-12" align="center">
@@ -7,41 +7,44 @@
   </div>
 
   <table :gangActive="gangActive" class="box" style="width: 60%; " border="1">
-          <thead>
-            <tr align="left">
-              <th>圖片</th>
-              <th>名稱</th>
-              <th>地點</th>
-              <th>管理</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(product, idx) in ac" :key="product._id">
-              <td align="center">
-                <img :src="product.image" :aspect-ratio="1" :width="100" :height="100"
-                style="object-fit: cover; margin: auto;">
-              </td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.category }}</td>
-              <td align="center">
-                <q-btn color="primary" icon="edit" @click="openAdd(idx)" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <thead>
+      <tr align="left">
+        <th>圖片</th>
+        <th>名稱</th>
+        <th>地點</th>
+        <th>管理</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(product, idx) in ac" :key="product._id">
+        <td align="center">
+          <img :src="product.image" :aspect-ratio="1" :width="100" :height="100"
+          style="object-fit: cover; margin: auto;">
+        </td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td align="center">
+          <q-btn color="primary" icon="edit" @click="openAdd(idx)" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
     <div class="row justify-center">
         <q-dialog v-model="form.dialog" persistent>
           <q-card class="sumbitcard">
             <div class="text-h6" align="center">{{ form._id.length > 0 ? '編輯揪團' : '新增揪團' }}</div>
+
             <q-form @submit="submit">
-              <div class="flex row justify-between" style="padding: 16px 50px 16px 50px;">
-              <q-input class="col-12" style="padding:10px ;" filled v-model="form.name" label="活動名稱" lazy-rules :rules="[rules.required]"/>
-              <q-input class="col-12" style="padding:10px ;" filled v-model="form.price" label="參與活動費用" lazy-rules :rules="[rules.price]"/>
-              <q-input class="col-12" style="padding: 10px;" filled v-model="form.description" label="揪團活動說明"
+              <div class="flex row justify-between">
+              <q-input class="col-12" filled v-model="form.name" label="活動名稱" lazy-rules :rules="[rules.required]"/>
+              <q-input class="col-12" filled v-model="form.math" label="參與人數" lazy-rules :rules="[rules.required,rules.price]"/>
+              <q-input class="col-12" filled v-model="form.price" label="參與費用" lazy-rules :rules="[rules.price]"/>
+              <q-select class="col-12" filled :options="genres" v-model="form.genre" label="活動類型" :rules="[rules.required]" />
+              <q-input class="col-12" filled v-model="form.description" label="揪團活動說明"
               clearable type="textarea" @keydown="processTextareaFill"
-              @focus="processTextareaFill"
-              :rules="[rules.required]"/>
+              @focus="processTextareaFill" :rules="[rules.required]"/>
+
               <q-file class="col-12" filled bottom-slots v-model="form.image" label="活動圖片" counter>
                 <template v-slot:prepend>
                   <q-icon name="cloud_upload" @click.stop.prevent />
@@ -49,27 +52,73 @@
                 <template v-slot:append>
                   <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
                 </template>
-
                 <template v-slot:hint>
                   請上傳.jpg檔
                 </template>
               </q-file>
-              <q-file class="col-11" filled v-model="form.images" label="請選擇主圖片(可複選)" use-chips multiple>
-                  <template v-slot:prepend>
-                    <q-icon name="attach_file"></q-icon>
-                  </template>
-                </q-file>
+
+              <q-file class="col-12" filled v-model="form.images" label="請選擇主圖片(可複選)" use-chips multiple>
+                <template v-slot:prepend>
+                  <q-icon name="attach_file"></q-icon>
+                </template>
+              </q-file>
+
                 <div class="row" >
                     <q-img class="q-ml-lg" v-for="image in images" :key="image" :src="image" width="100px" />
                 </div>
 
-              <q-select class="col-8" filled :options="categories" v-model="form.category" label="活動地點" :rules="[rules.required]" />
+              <q-card-section class="col-12">
+                <q-input label="揪團日期、時間" filled v-model="form.date" :rules="[rules.required]">
+                  <template v-slot:prepend>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-date v-model="form.date" mask="YYYY-MM-DD HH:mm">
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="primary"
+                              flat
+                            ></q-btn>
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                  <template v-slot:append>
+                    <q-icon name="access_time" class="cursor-pointer">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-time
+                          v-model="form.date"
+                          mask="YYYY-MM-DD HH:mm"
+                          format24h
+                          now-btn
+                        >
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Close" color="primary" flat />
+                          </div>
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </q-card-section>
 
-              <q-btn class="col-6" style="padding: 10px;" flat label="Cancel" color="primary" :disabled="form.loading" v-close-popup />
+              <q-select class="col-12 city" filled :options="categories" v-model="form.category" label="活動地點" :rules="[rules.required]" />
 
-              <q-btn class="col-6" flat label="Add Send" type="submit" :disabled="form.loading" color="primary" />
+              <q-btn class="col-6 Add-btn" flat label="Cancel" color="primary" v-close-popup />
+              <q-btn class="col-6 Add-btn" flat label="Add Send" type="submit" :disabled="form.loading" color="primary" />
               </div>
             </q-form>
+
           </q-card>
         </q-dialog>
   </div>
@@ -83,7 +132,7 @@
 }
 
 .q-card{
-  height: 600px;
+  width: 1200px;
 }
 
 .text-h6{
@@ -107,6 +156,13 @@
 .sumbitcard{
   width: 1200px;
 }
+.Add-btn{
+  margin-bottom: 10px;
+}
+.city{
+  margin-bottom: 20px;
+}
+
 </style>
 
 <script setup>
@@ -115,6 +171,8 @@ import { ref, reactive, computed } from 'vue'
 import Swal from 'sweetalert2'
 
 const categories = ['台北市', '新北市', '桃園市', '臺中市', '臺南市', '高雄市']
+const genres = ['運動', '聊天', '吃飯', '散步', '唱歌', '活動', '露營', '旅行', '閱讀']
+
 const gangActive = ref(categories[0])
 
 const ac = computed(() => {
@@ -141,11 +199,14 @@ const images = ref([])
 const form = reactive({
   _id: '',
   name: '',
+  date: '',
+  math: 0,
   price: 0,
   description: '',
   image: undefined,
   images: [],
   sell: false,
+  genre: '',
   category: '',
   valid: false,
   loading: false,
@@ -157,10 +218,13 @@ const openAdd = (idx) => {
   if (idx === -1) {
     form._id = ''
     form.name = ''
+    form.date = ''
+    form.math = 0
     form.price = 0
     form.description = ''
     form.image = undefined
     form.images = []
+    form.genre = ''
     form.category = ''
     form.valid = false
     form.loading = false
@@ -168,10 +232,13 @@ const openAdd = (idx) => {
   } else {
     form._id = products[idx]._id
     form.name = products[idx].name
+    form.date = products[idx].date
+    form.math = products[idx].math
     form.price = products[idx].price
     form.description = products[idx].description
     form.image = products[idx].image
     form.images = products[idx].images
+    form.genre = products[idx].genre
     form.category = products[idx].category
     form.valid = false
     form.loading = false
@@ -184,9 +251,12 @@ const submit = async () => {
   form.loading = true
   const fd = new FormData()
   fd.append('name', form.name)
+  fd.append('math', form.math)
   fd.append('price', form.price)
+  fd.append('date', form.date)
   fd.append('description', form.description)
   fd.append('image', form.image)
+  fd.append('genre', form.genre)
   fd.append('category', form.category)
   for (const i of form.images) {
     fd.append('images', i)

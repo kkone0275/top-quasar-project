@@ -20,7 +20,7 @@
 
       <q-card-section>
         <div class="chip01">
-          <q-chip class="type_tag" color="orange-14" text-color="white">
+          <q-chip class="type_tag" color="red-12" text-color="white">
           {{ category }}
           </q-chip>
         </div>
@@ -97,11 +97,11 @@ defineProps({
 
 .name{
   position: absolute;
-  font-size: 36px;
+  font-size: 30px;
   font-weight: bold;
   color: #686868;
   top: 38px;
-  left: 135px;
+  left: 128px;
 }
 
 .time{

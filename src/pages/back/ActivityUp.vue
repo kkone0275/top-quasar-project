@@ -28,9 +28,11 @@
         <q-dialog v-model="form.dialog" persistent>
           <q-card style="max-width: 800px ">
             <div class="text-h6" align="center">{{ form._id.length > 0 ? '編輯揪團' : '新增揪團' }}</div>
+
             <q-form @submit="submit">
               <div class="flex row justify-between" style="padding: 16px 50px 16px 50px;">
               <q-input class="col-12" style="padding:10px ;" filled v-model="form.name" label="活動名稱" lazy-rules :rules="[rules.required]"/>
+              <q-input class="col-12" style="padding:10px ;" filled v-model="form.math" label="參與人數" lazy-rules :rules="[rules.required,rules.price]"/>
               <q-input class="col-12" style="padding:10px ;" filled v-model="form.price" label="活動價格" lazy-rules :rules="[rules.required,rules.price]"/>
               <q-input class="col-12" style="padding: 10px;" filled v-model="form.description" label="商品說明"
               clearable type="textarea" @keydown="processTextareaFill"
@@ -59,6 +61,8 @@
 
               <q-select class="col-8" filled :options="categories" v-model="form.category" label="活動地點" :rules="[rules.required]" />
 
+              <q-select class="col-8" filled :options="genres" v-model="form.genre" label="活動類型" :rules="[rules.required]" />
+
               <q-checkbox class="col-8" style="margin-bottom: 1.2rem;" v-model="form.sell" label="上架" />
 
               <q-btn class="col-6" style="padding: 10px;" flat label="Cancel" color="primary" :disabled="form.loading" v-close-popup />
@@ -66,6 +70,7 @@
               <q-btn class="col-6" flat label="Add Send" type="submit" :disabled="form.loading" color="primary" />
               </div>
             </q-form>
+
           </q-card>
         </q-dialog>
     </div>
@@ -109,6 +114,7 @@ import { ref, reactive } from 'vue'
 import Swal from 'sweetalert2'
 
 const categories = ['台北市', '新北市', '新竹市', '台中市', '雲林縣', '台中市']
+const genres = ['運動', '聊天', '吃飯', '散步', '唱歌', '活動', '露營', '旅行', '閱讀']
 const rules = {
   required (value) {
     return !!value || '欄位必填'
@@ -123,11 +129,13 @@ const images = ref([])
 const form = reactive({
   _id: '',
   name: '',
+  math: 0,
   price: 0,
   description: '',
   image: undefined,
   images: [],
   sell: false,
+  genre: '',
   category: '',
   valid: false,
   loading: false,
@@ -139,11 +147,13 @@ const openAdd = (idx) => {
   if (idx === -1) {
     form._id = ''
     form.name = ''
+    form.math = 0
     form.price = 0
     form.description = ''
     form.image = undefined
     form.images = []
     form.sell = false
+    form.genre = ''
     form.category = ''
     form.valid = false
     form.loading = false
@@ -151,11 +161,13 @@ const openAdd = (idx) => {
   } else {
     form._id = products[idx]._id
     form.name = products[idx].name
+    form.math = products[idx].math
     form.price = products[idx].price
     form.description = products[idx].description
     form.image = products[idx].image
     form.images = products[idx].images
     form.sell = products[idx].sell
+    form.genre = products[idx].genre
     form.category = products[idx].category
     form.valid = false
     form.loading = false
@@ -184,10 +196,12 @@ const submit = async () => {
   form.loading = true
   const fd = new FormData()
   fd.append('name', form.name)
+  fd.append('math', form.math)
   fd.append('price', form.price)
   fd.append('description', form.description)
   fd.append('sell', form.sell)
   fd.append('image', form.image)
+  fd.append('genre', form.genre)
   fd.append('category', form.category)
   for (const i of form.images) {
     fd.append('images', i)

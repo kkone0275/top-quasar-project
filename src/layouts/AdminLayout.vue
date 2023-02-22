@@ -18,7 +18,7 @@
           <q-btn flat round dense :icon="menu" class="q-mr-sm text-primary">
           <img :src="avatar" style="width: 45px; height: 45px;">
           </q-btn>
-          <q-btn class="font-r" flat label="會員登出" @click="logout"/>
+          <q-btn class="font-r" flat label="管理登出" @click="logout"/>
         </div>
         <!-- <q-btn class="btn-r" color="yellow-9" @click="prompt = true" label="會員登入" to="login"/> -->
         <!-- <q-btn class="btn-r" label="會員註冊" color="yellow-9" @click="register = true"/> -->
@@ -49,7 +49,7 @@
       <q-btn class="btn-left" unelevated rounded color="orange-6" label="揪團管理" to="products" /><br>
       <q-btn class="btn-left" unelevated rounded color="orange-6" label="填空管理" to="products" /><br>
       <q-btn class="btn-left" unelevated rounded color="orange-6" label="訂單管理" to="order" /><br>
-      <q-btn class="btn-left" unelevated rounded color="orange-6" label="會員登出" @click="logout" />
+      <q-btn class="btn-left" unelevated rounded color="orange-6" label="管理登出" @click="logout" />
       <!-- <q-btn class="btn-r" style="background:#F3A308 ; color: white" label="會員登出" @click="logout"/> -->
       </div>
     </q-drawer>
@@ -116,9 +116,18 @@ border-bottom: 5px solid #FF775C;
 
 .btn-left{
   width: 200px;
-  margin-left: 16%;
-  margin-top: 8%;
+  margin-bottom: 20px;
 }
+
+.q-gutter-y-sm, .q-gutter-sm {
+    margin-top: -20px;
+}
+
+.left-btn{
+  margin-left: 16%;
+  margin-top: 12%;
+}
+
 </style>
 
 <script setup>

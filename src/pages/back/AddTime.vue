@@ -32,10 +32,10 @@
       <div class="col-12 col-md-1">
         <q-dialog v-model="form.dialog" persistent>
           <q-card style="max-width: 800px ">
-            <div class="text-h6" align="center">{{ form._id.length > 0 ? '編輯揪團' : '新增揪團' }}</div>
+            <div class="text-h6" align="center">{{ form._id.length > 0 ? '編輯填空' : '新增填空' }}</div>
 
             <q-form @submit="submit">
-              <div class="flex row justify-between" style="padding: 16px 50px 16px 50px;">
+              <div class="flex row justify-between">
               <q-input class="col-12" style="padding:10px ;" filled v-model="form.name" label="個人暱稱" lazy-rules :rules="[rules.required]"/>
               <!-- <q-input class="col-12" style="padding:10px ;" filled v-model="form.price" label="活動價格" lazy-rules :rules="[rules.price]"/> -->
               <q-input class="col-12" style="padding: 10px;" filled v-model="form.description" label="空閒描述"
@@ -43,29 +43,8 @@
               @focus="processTextareaFill"
               :rules="[rules.required]"/>
 
-              <!-- <q-file class="col-12" filled bottom-slots v-model="form.image" label="活動圖片" counter>
-                <template v-slot:prepend>
-                  <q-icon name="cloud_upload" @click.stop.prevent />
-                </template>
-                <template v-slot:append>
-                  <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
-                </template>
-
-                <template v-slot:hint>
-                  請上傳.jpg檔
-                </template>
-              </q-file>
-              <q-file class="col-11" filled v-model="form.images" label="請選擇主圖片(可複選)" use-chips multiple>
-                <template v-slot:prepend>
-                  <q-icon name="attach_file"></q-icon>
-                </template>
-              </q-file>
-                <div class="row" >
-                    <q-img class="q-ml-lg" v-for="image in images" :key="image" :src="image" width="100px" />
-                </div> -->
-
-      <q-card-section class="q-pt-none">
-        <q-input filled v-model="form.date" :rules="[rules.required]">
+      <q-card-section class="col-12">
+        <q-input label="活動日期、時間" filled v-model="form.date" :rules="[rules.required]">
           <template v-slot:prepend>
             <q-icon name="event" class="cursor-pointer">
               <q-popup-proxy
@@ -109,9 +88,9 @@
         </q-input>
       </q-card-section>
 
-      <q-input class="col-6" style="padding:10px ;" filled v-model="form.hour" label="活動時數" lazy-rules :rules="[rules.required]"/>
+      <q-input class="col-3" style="padding:10px ;" filled v-model="form.hour" label="活動小時數" lazy-rules :rules="[rules.required]"/>
 
-              <q-select class="col-8" filled :options="categories" v-model="form.category" label="活動地點" :rules="[rules.required]" />
+              <q-select class="col-9 city" filled :options="categories" v-model="form.category" label="活動地點" :rules="[rules.required]" />
 
               <q-btn class="col-6" style="padding: 10px;" flat label="Cancel" color="primary" :disabled="form.loading" v-close-popup />
 
@@ -132,7 +111,7 @@
 }
 
 .q-card{
-  height: 600px;
+  width: 1200px;
 }
 
 .text-h6{
@@ -152,6 +131,11 @@
   position: absolute;
   top: 30%;
   left: 25%;
+}
+
+.city{
+  position: relative;
+  bottom: 15px;
 }
 </style>
 
