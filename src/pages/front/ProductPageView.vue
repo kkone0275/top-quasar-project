@@ -69,6 +69,7 @@ const addEvent = async () => {
       text: '送出成功'
     })
   } catch (error) {
+    console.log(error)
     Swal.fire({
       icon: 'error',
       title: '失敗',

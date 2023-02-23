@@ -18,8 +18,8 @@
     <tbody>
       <tr v-for="(product, idx) in ac" :key="product._id">
         <td align="center">
-          <img :src="product.image" :aspect-ratio="1" :width="100" :height="100"
-          style="object-fit: cover; margin: auto;">
+          <img :src="product.image" :aspect-ratio="1" :height="100"
+          style="object-fit:inherit; margin: auto;">
         </td>
         <td>{{ product.name }}</td>
         <td>{{ product.category }}</td>
@@ -42,8 +42,7 @@
               <q-input class="col-12" filled v-model="form.price" label="參與費用" lazy-rules :rules="[rules.price]"/>
               <q-select class="col-12" filled :options="genres" v-model="form.genre" label="活動類型" :rules="[rules.required]" />
               <q-input class="col-12" filled v-model="form.description" label="揪團活動說明"
-              clearable type="textarea" @keydown="processTextareaFill"
-              @focus="processTextareaFill" :rules="[rules.required]"/>
+              clearable type="textarea" @keydown="processTextareaFill" @focus="processTextareaFill" :rules="[rules.required]"/>
 
               <q-file class="col-12" filled bottom-slots v-model="form.image" label="活動圖片" counter>
                 <template v-slot:prepend>

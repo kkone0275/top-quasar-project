@@ -1,7 +1,7 @@
 <template>
   <h5 class="text-center">活動管理</h5>
   <!-- <q-btn class="add" style="background: #F3A308; color: white" @click="openAdd(-1)" label="新增揪團" /> -->
-  <table class="box" style="width: 60%; " border="1">
+  <!-- <table class="box" style="width: 60%; " border="1">
           <thead>
             <tr align="left">
               <th>圖片</th>
@@ -21,7 +21,43 @@
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
+
+        <div style="max-width: 100%">
+        <div class="q-pa-md q-gutter-md">
+          <q-item clickable v-ripple class="text-center">
+            <q-item-section>商品名稱</q-item-section>
+            <q-item-section>商品價格</q-item-section>
+            <q-item-section>商品名稱</q-item-section>
+            <q-item-section>上架狀態</q-item-section>
+            <q-item-section>商品分類</q-item-section>
+            <q-item-section>管理/編輯</q-item-section>
+          </q-item>
+          <q-separator />
+          <!-- 下面的商品們 -->
+          <q-item clickable v-ripple class="text-center" style="background: #fff;" v-for="(product, idx) in products"
+            :key="product._id">
+            <q-item-section>
+              <img :src="product.image" :aspect-ratio="1" :width="150" :height="150"
+                style="object-fit: cover; margin: auto;">
+            </q-item-section>
+            <q-item-section>{{ product.name }}</q-item-section>
+            <q-item-section>{{ product.price }} 元</q-item-section>
+            <q-item-section>
+              <q-toggle :label="` ${product.sell ? '有' : '未'} 上架`" v-model="product.sell" checked-icon="check"
+                color="green" unchecked-icon="clear" style="position: absolute;
+          left: 54%;" />
+            </q-item-section>
+            <q-item-section>{{ product.category }}</q-item-section>
+            <q-item-section>
+              <div>
+                <q-btn round color="secondary" size="20px" icon="save_as" @click="openAdd(idx)" />
+              </div>
+            </q-item-section>
+          </q-item>
+        </div>
+      </div>
+
   <div class="q-pa-md">
     <div class="row justify-center">
       <div class="col-12 col-md-1">
@@ -51,10 +87,10 @@
                 </template>
               </q-file>
               <q-file class="col-11" filled v-model="form.images" label="請選擇主圖片(可複選)" use-chips multiple>
-                  <template v-slot:prepend>
-                    <q-icon name="attach_file"></q-icon>
-                  </template>
-                </q-file>
+                <template v-slot:prepend>
+                  <q-icon name="attach_file"></q-icon>
+                </template>
+              </q-file>
                 <div class="row" >
                     <q-img class="q-ml-lg" v-for="image in images" :key="image" :src="image" width="100px" />
                 </div>

@@ -18,10 +18,12 @@
 
   <hr>
   <div class="bgc">
+  <div class="bgd">
   <div class="flex set">
     <div class="card" v-for="product in filterData" :key="product._id" style="margin-top: 5rem;">
       <ProductCard v-bind="product"/>
     </div>
+  </div>
   </div>
   </div>
 </template>

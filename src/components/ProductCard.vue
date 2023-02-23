@@ -14,23 +14,24 @@
         </q-item-label> -->
         <div class="text-subtitle2 name">{{ name }}</div>
 
-        <p class="city">活動類型:</p>
+        <p class="type">活動類型:</p>
         <q-card-section>
-          <q-chip class="type_tag" color="red-12" text-color="white">
+          <q-chip class="type_tag2" color="red-12" text-color="white">
           {{ genre }}
           </q-chip>
         </q-card-section>
 
         <p class="city">活動城市:</p>
         <q-card-section>
-          <q-chip class="type_tag" color="red-12" text-color="white">
+          <q-chip class="type_tag1" color="red-12" text-color="white">
           {{ category }}
           </q-chip>
         </q-card-section>
-        <div class="text-subtitle2 city">活動日期: </div>
+        <div class="text-subtitle2 week">活動日期: </div>
         <div class="text-subtitle2 date">{{ date.slice(0,10) }}</div>
-        <div class="text-subtitle2 price">參加花費: ${{ price }}</div>
-        <div class="text-subtitle2 price">參加人數:  {{ math }} 人</div>
+        <div class="text-subtitle2 math">參加人數:  </div>
+        <p class="people">{{ math }} 人</p>
+        <div class="text-subtitle2 price">參加花費: $ {{ price }}</div>
 
       </q-card-section>
 
@@ -94,39 +95,32 @@ defineProps({
 
 </script>
 
-<style>
+<style scoped>
 .q-card{
   width: 100%;
-  height: 100%;
+  height: 105%;
   border-radius: 10px;
-  margin-top: -4.5rem;
-  margin-bottom: 20px;
+  margin-top: -4rem;
+  margin-bottom: 10px;
+  margin-left: 16px;
 }
 
 .like{
   margin-left: 135px;
 }
 
-/* .des{
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  color: gray;
-} */
 </style>
 
 <style lang="scss" scoped>
 .img{
-  height: 252px;
+  height: 320px;
   width: 360px;
   display: table-cell;
   vertical-align: middle;
   position: relative;
-  margin-top: 12px;
+  margin-top: 0px;
   overflow: hidden;
+  object-fit:scale-down;
 }
 
 .name{
@@ -134,7 +128,7 @@ defineProps({
   font-weight: bold;
   color: #8A8888;
   margin-left: 8px;
-  margin-top: 12px;
+  margin-top: 0px;
 }
 
 .price{
@@ -142,7 +136,8 @@ defineProps({
   font-weight: bold;
   color: #8A8888;
   margin-left: 8px;
-  margin-top: 12px;
+  margin-top: 0px;
+  margin-bottom: 15px;
 }
 
 .q-chip{
@@ -158,6 +153,7 @@ defineProps({
   font-size: 24px;
   font-weight: bold;
   margin-left: 8px;
+  margin-top: 40px;
   color: #8A8888;
 }
 .date{
@@ -166,11 +162,57 @@ defineProps({
   font-weight: bolder;
   margin-left: 8px;
   color: #1778D1;
+  top:84px;
+  left: 132px;
 }
 
-// .side{
-//   height: 252px;
-//   width: 360px;
-//   overflow: hidden;
-// }
+.week{
+  position: absolute;
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 8px;
+  margin-top: -75px;
+  color: #8A8888;
+}
+
+.type_tag1{
+  height: 24px;
+  width: 85px;
+  position: relative;
+  margin-top: 28px;
+}
+
+.type_tag2{
+  width: 70px;
+  height: 25px;
+  position: absolute;
+  margin-top: 6px;
+}
+
+.people{
+  position:absolute;
+  top: 142px;
+  left: 140px;
+  font-size: 22px;
+  font-weight: bolder;
+  color: #8A8888;
+}
+
+.math{
+  position: relative;
+  color: #8A8888;
+  font-size: 22px;
+  font-weight: bold;
+  left: 8px;
+  top:-10px
+}
+
+.type{
+  position: absolute;
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 8px;
+  margin-top: 8px;
+  color: #8A8888;
+}
 </style>
