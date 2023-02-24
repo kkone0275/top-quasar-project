@@ -12,7 +12,7 @@
         </q-toolbar-title>
         <q-btn class="font-r" flat label="網站首頁" to="/"/>
         <q-btn class="font-r" flat label="組隊揪夥" to="/teamup" />
-        <q-btn class="font-r" flat label="時間填空" to="timefill" />
+        <q-btn class="font-r" flat label="空閒時間" to="timefill" />
         <q-btn class="font-r" flat label="關於我們" to="aboutme" />
         <div class="q-pa-md q-gutter-sm avatar" style="height: 80px">
           <q-btn flat round dense :icon="menu" class="q-mr-sm text-primary">
@@ -47,7 +47,7 @@
       <!-- drawer content -->
       <div class="left-btn" style="height: 80px">
       <q-btn class="btn-left" unelevated rounded color="orange-6" label="揪團管理" to="products" /><br>
-      <q-btn class="btn-left" unelevated rounded color="orange-6" label="填空管理" to="products" /><br>
+      <q-btn class="btn-left" unelevated rounded color="orange-6" label="空閒管理" to="products" /><br>
       <q-btn class="btn-left" unelevated rounded color="orange-6" label="訂單管理" to="order" /><br>
       <q-btn class="btn-left" unelevated rounded color="orange-6" label="管理登出" @click="logout" />
       <!-- <q-btn class="btn-r" style="background:#F3A308 ; color: white" label="會員登出" @click="logout"/> -->

@@ -62,9 +62,10 @@ const orders = reactive([]);
 
 (async () => {
   try {
-    const { data } = await apiAuth.get('/orders/all')
+    const { data } = await apiAuth.get('/orders')
     orders.push(...data.result)
   } catch (error) {
+    console.log(error)
     Swal.fire({
       toast: true,
       timer: 1000,

@@ -21,7 +21,7 @@
 import { api, apiAuth } from '../../boot/axios'
 import { reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { Swal } from 'sweetalert2'
+import Swal from 'sweetalert2'
 // import { useUserStore } from 'src/stores/user'
 
 // const user = useUserStore()

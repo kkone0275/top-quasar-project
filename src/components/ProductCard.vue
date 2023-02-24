@@ -29,7 +29,7 @@
         </q-card-section>
         <div class="text-subtitle2 week">活動日期: </div>
         <div class="text-subtitle2 date">{{ date.slice(0,10) }}</div>
-        <div class="text-subtitle2 math">參加人數:  </div>
+        <div class="text-subtitle2 math">活動人數:  </div>
         <p class="people">{{ math }} 人</p>
         <div class="text-subtitle2 price">參加花費: $ {{ price }}</div>
 

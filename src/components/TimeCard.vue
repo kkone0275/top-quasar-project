@@ -25,11 +25,11 @@
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-        <q-btn class="q-px-lg message" unelevated rounded color="teal-6" label="時  間  填  空" @click="prompt = true" />
+        <q-btn class="q-px-lg message" unelevated rounded color="teal-6" label="時  間  填  空" @click="form.dialog = true" />
 
         <!-- 展開選單 -->
-      <q-dialog v-model="prompt" persistent>
-          <q-card style="min-width: 600px;height: 700px;">
+      <q-dialog v-model="form.dialog" persistent>
+        <q-card style="min-width: 600px;height: 700px;">
             <q-card-section class="flex">
               <img class="avatar-in" :src="`https://source.boringavatars.com/beam/256/$%7B${name}colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
               <div class="text-subtitle2 name-in">{{ name }}</div>
@@ -49,50 +49,80 @@
               <div>{{ description }}</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none">
-              <q-input class="dating" outlined v-model="me" label="我想請你，跟我一起:" autofocus @keyup.enter="blank = false" />
-            </q-card-section>
-
-            <q-card-section class="q-pt-none">
-              <q-input class="dating" outlined v-model="land" label="集合地點:" autofocus @keyup.enter="blank = false" />
-            </q-card-section>
-
-            <q-card-section class="q-pt-none">
-              <q-input class="dating" outlined v-model="detailed" label="提議詳細描述:" autofocus @keyup.enter="blank = false" />
-            </q-card-section>
-
-            <q-card-section class="q-pt-none">
-              <q-input class="dating" outlined v-model="detailed" label="請上傳圖片:" autofocus @keyup.enter="blank = false" />
-            </q-card-section>
-
-              <q-btn class="q-px-lg message2" unelevated rounded color="teal-6" label="時  間  填  空"  />
-          </q-card>
+            <q-form @submit="submit">
+              <!-- <div class="flex row justify-between" v-for="(invite, idx) in invites" > -->
+                <q-card-section class="q-pt-none">
+                  <q-input class="dating" outlined v-model="form.me" label="我想請你，跟我一起:" autofocus @keyup.enter="blank = false" />
+                </q-card-section>
+                <q-card-section class="q-pt-none">
+                  <q-input class="dating" outlined v-model="form.land" label="集合地點:" autofocus @keyup.enter="blank = false" />
+                </q-card-section>
+                <q-card-section class="q-pt-none">
+                  <q-input class="dating" outlined v-model="form.detailed" label="提議描述:" autofocus @keyup.enter="blank = false" />
+                </q-card-section>
+                <q-card-section class="q-pt-none">
+                <q-file class="dating" outlined label="請上傳圖片( 選填 )" v-model="form.image">
+                <template v-slot:prepend>
+                  <q-icon name="attach_file" />
+                </template>
+                </q-file>
+              </q-card-section>
+              <q-card-section class="q-pt-none">
+              <q-btn class="q-px-lg message2" unelevated rounded :disabled="form.loading" type="submit" color="teal-6" label="時  間  填  空"  />
+              </q-card-section>
+            <!-- </div> -->
+            </q-form>
+        </q-card>
       </q-dialog>
-
-      <!-- <q-file class="dating" filled bottom-slots v-model="dating" label="圖片補充" counter>
-        <template v-slot:prepend>
-          <q-icon name="cloud_upload" @click.stop.prevent />
-        </template>
-        <template v-slot:append>
-          <q-icon name="close" @click.stop.prevent="model = null" class="cursor-pointer" />
-        </template>
-      </q-file>
-
-      <q-card-actions align="right" class="text-primary">
-        <q-btn flat label="Cancel" v-close-popup />
-        <q-btn class="q-px-lg message" unelevated rounded color="teal-6" label="時  間  填  空"  />
-      </q-card-actions>
-    </q-card>
-    </q-dialog> -->
 
       </q-card-section>
     </q-card>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { apiAuth } from 'src/boot/axios'
+import { reactive } from 'vue'
+import Swal from 'sweetalert2'
 
-const prompt = ref(false)
+// const prompt = ref(false)
+const form = reactive({
+  me: '',
+  land: '',
+  detailed: '',
+  image: undefined,
+  sell: true,
+  loading: false,
+  dialog: false
+  // idx: -1
+})
+
+const submit = async () => {
+  console.log(form)
+  form.loading = true
+  const fd = new FormData()
+  fd.append('me', form.me)
+  fd.append('land', form.land)
+  fd.append('detailed', form.detailed)
+  fd.append('image', form.image)
+
+  try {
+    const { data } = await apiAuth.post('/invites', fd)
+    console.log(data)
+    Swal.fire({
+      icon: 'success',
+      title: '成功',
+      text: '新增成功'
+    })
+    form.dialog = false
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
+  form.loading = false
+}
 
 defineProps({
   _id: {
