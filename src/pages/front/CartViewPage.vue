@@ -45,7 +45,6 @@
           </div>
         </div>
       </div>
-
 <!-- 結帳區域 -->
       <div id="cartTotal" class="col-12 col-md-3">
         <h4 style="font-weight: 600;">活動參與總數</h4>

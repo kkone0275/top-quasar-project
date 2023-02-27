@@ -12,7 +12,7 @@
             <q-item-section>商品名稱</q-item-section>
             <q-item-section>商品價格</q-item-section>
             <q-item-section>商品名稱</q-item-section>
-            <!-- <q-item-section>上架狀態</q-item-section> -->
+            <q-item-section>上架狀態</q-item-section>
             <q-item-section>商品分類</q-item-section>
             <q-item-section>管理/編輯</q-item-section>
           </q-item>
@@ -26,10 +26,10 @@
             </q-item-section>
             <q-item-section>{{ product.name }}</q-item-section>
             <q-item-section>{{ product.price }} 元</q-item-section>
-            <!-- <q-item-section>
+            <q-item-section>
               <q-toggle :label="` ${product.sell ? '有' : '未'} 上架`" v-model="product.sell" checked-icon="check"
                 color="green" unchecked-icon="clear" style="position: absolute; left: 54%;" />
-            </q-item-section> -->
+            </q-item-section>
             <q-item-section>{{ product.category }}</q-item-section>
             <q-item-section>
               <div>
@@ -74,6 +74,7 @@
               <q-input class="col-12" filled v-model="form.name" label="活動名稱" lazy-rules :rules="[rules.required]"/>
               <q-input class="col-12" filled v-model="form.math" label="參與人數" lazy-rules :rules="[rules.required,rules.price]"/>
               <q-input class="col-12" filled v-model="form.price" label="參與費用" lazy-rules :rules="[rules.price]"/>
+              <q-input class="col-12" filled v-model="form.place" label="活動地點" lazy-rules :rules="[rules.required]"/>
               <q-select class="col-12" filled :options="genres" v-model="form.genre" label="活動類型" :rules="[rules.required]" />
               <q-input class="col-12" filled v-model="form.description" label="揪團活動說明"
               clearable type="textarea" @keydown="processTextareaFill" @focus="processTextareaFill" :rules="[rules.required]"/>
@@ -203,7 +204,7 @@ import { apiAuth } from '../../boot/axios.js'
 import { ref, reactive, computed } from 'vue'
 import Swal from 'sweetalert2'
 
-const categories = ['台北市', '新北市', '桃園市', '臺中市', '臺南市', '高雄市']
+const categories = ['所有地區', '台北市', '新北市', '桃園市', '臺中市', '臺南市', '高雄市']
 const genres = ['運動', '聊天', '吃飯', '散步', '唱歌', '活動', '露營', '旅行', '閱讀']
 
 const gangActive = ref(categories[0])
@@ -235,6 +236,7 @@ const form = reactive({
   date: '',
   math: 0,
   price: 0,
+  place: '',
   description: '',
   image: undefined,
   images: [],
@@ -254,6 +256,7 @@ const openAdd = (idx) => {
     form.date = ''
     form.math = 0
     form.price = 0
+    form.place = ''
     form.description = ''
     form.image = undefined
     form.images = []
@@ -268,6 +271,7 @@ const openAdd = (idx) => {
     form.date = products[idx].date
     form.math = products[idx].math
     form.price = products[idx].price
+    form.place = products[idx].place
     form.description = products[idx].description
     form.image = products[idx].image
     form.images = products[idx].images
@@ -286,6 +290,7 @@ const submit = async () => {
   fd.append('name', form.name)
   fd.append('math', form.math)
   fd.append('price', form.price)
+  fd.append('place', form.place)
   fd.append('date', form.date)
   fd.append('description', form.description)
   fd.append('image', form.image)

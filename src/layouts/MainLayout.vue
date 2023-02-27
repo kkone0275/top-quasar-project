@@ -129,7 +129,8 @@ const changeActiveClass = (path) => {
 }
 
 const user = useUserStore()
-const { isLogin, isAdmin, cart } = storeToRefs(user)
+const { isLogin, isAdmin } = storeToRefs(user)
+// const { isLogin, isAdmin, cart } = storeToRefs(user)
 const { logout } = user
 
 </script>
