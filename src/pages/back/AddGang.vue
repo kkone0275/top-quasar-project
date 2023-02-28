@@ -1,6 +1,6 @@
 <template>
   <h5 class="text-center">揪團上架</h5>
-  <q-btn class="add" style="background: #F3A308; color: white" @click="openAdd(-1)" label="新增揪團" />
+  <q-btn class="add" style="background: #FFB300 ; color: white" @click="openAdd(-1)" label="新增揪團" />
 
   <div class="q-pa-md q-gutter-sm col-12" align="center">
     <q-btn v-for="gang,index in categories" unelevated rounded color="amber-7" :key="index" :label="gang" @click="gangActive=gang" />
@@ -9,11 +9,12 @@
   <div style="max-width: 100%">
         <div class="q-pa-md q-gutter-md">
           <q-item clickable v-ripple class="text-center">
-            <q-item-section>商品名稱</q-item-section>
-            <q-item-section>商品價格</q-item-section>
-            <q-item-section>商品名稱</q-item-section>
+            <q-item-section>揪團圖片</q-item-section>
+            <q-item-section>揪團名稱</q-item-section>
+            <q-item-section>參與人數</q-item-section>
+            <!-- <q-item-section>參加費用</q-item-section> -->
             <q-item-section>上架狀態</q-item-section>
-            <q-item-section>商品分類</q-item-section>
+            <q-item-section>揪團地區</q-item-section>
             <q-item-section>管理/編輯</q-item-section>
           </q-item>
           <q-separator />
@@ -25,7 +26,8 @@
                 style="object-fit: cover; margin: auto;">
             </q-item-section>
             <q-item-section>{{ product.name }}</q-item-section>
-            <q-item-section>{{ product.price }} 元</q-item-section>
+            <q-item-section>{{ product.math }} 人</q-item-section>
+            <!-- <q-item-section>{{ product.price }} 元</q-item-section> -->
             <q-item-section>
               <q-toggle :label="` ${product.sell ? '有' : '未'} 上架`" v-model="product.sell" checked-icon="check"
                 color="green" unchecked-icon="clear" style="position: absolute; left: 54%;" />
@@ -39,30 +41,6 @@
           </q-item>
         </div>
       </div>
-
-  <!-- <table :gangActive="gangActive" class="box" style="width: 60%; " border="1">
-    <thead>
-      <tr align="left">
-        <th>圖片</th>
-        <th>名稱</th>
-        <th>地點</th>
-        <th>管理</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(product, idx) in ac" :key="product._id">
-        <td align="center">
-          <img :src="product.image" :aspect-ratio="1" :height="100"
-          style="object-fit:inherit; margin: auto;">
-        </td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.category }}</td>
-        <td align="center">
-          <q-btn color="primary" icon="edit" @click="openAdd(idx)" />
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
 
     <div class="row justify-center">
         <q-dialog v-model="form.dialog" persistent>
@@ -147,6 +125,7 @@
               </q-card-section>
 
               <q-select class="col-12 city" filled :options="categories" v-model="form.category" label="活動地點" :rules="[rules.required]" />
+              <q-checkbox class="col-8" style="margin-bottom: 1.2rem;" v-model="form.sell" label="上架" />
 
               <q-btn class="col-6 Add-btn" flat label="Cancel" color="primary" v-close-popup />
               <q-btn class="col-6 Add-btn" flat label="Add Send" type="submit" :disabled="form.loading" color="primary" />

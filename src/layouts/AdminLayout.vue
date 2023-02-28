@@ -16,7 +16,7 @@
         <q-btn class="font-r" flat label="關於我們" to="aboutme" />
         <div class="q-pa-md q-gutter-sm avatar" style="height: 80px">
           <q-btn flat round dense :icon="menu" class="q-mr-sm text-primary">
-          <img :src="avatar" style="width: 45px; height: 45px;">
+            <img src='https://source.boringavatars.com/beam/256/{{user.name}}colors=ffabab,ffdaab,ddffab,abe4ff,d9abff' style="height: 45px">
           </q-btn>
           <q-btn class="font-r" flat label="管理登出" @click="logout"/>
         </div>
@@ -45,10 +45,10 @@
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
       <!-- drawer content -->
-      <div class="left-btn" style="height: 80px">
-      <q-btn class="btn-left" unelevated rounded color="orange-6" label="揪團管理" to="products" /><br>
-      <q-btn class="btn-left" unelevated rounded color="orange-6" label="空閒管理" to="products" /><br>
-      <q-btn class="btn-left" unelevated rounded color="orange-6" label="訂單管理" to="order" /><br>
+      <div class="left-btn">
+      <q-btn class="btn-left" unelevated rounded color="orange-6" label="揪團管理" to="actives" /><br>
+      <q-btn class="btn-left" unelevated rounded color="orange-6" label="空閒管理" to="times" /><br>
+      <q-btn class="btn-left" unelevated rounded color="orange-6" label="揪團紀錄" to="order" /><br>
       <q-btn class="btn-left" unelevated rounded color="orange-6" label="管理登出" @click="logout" />
       <!-- <q-btn class="btn-r" style="background:#F3A308 ; color: white" label="會員登出" @click="logout"/> -->
       </div>
@@ -116,7 +116,9 @@ border-bottom: 5px solid #FF775C;
 
 .btn-left{
   width: 200px;
-  margin-bottom: 20px;
+  height: 38px;
+  font-size: 18px;
+  margin-bottom: 30px;
 }
 
 .q-gutter-y-sm, .q-gutter-sm {
@@ -133,9 +135,9 @@ border-bottom: 5px solid #FF775C;
 <script setup>
 // 登出鈕設定
 import { useUserStore } from '../stores/user.js'
-import { storeToRefs } from 'pinia'
+// import { storeToRefs } from 'pinia'
 
 const user = useUserStore()
-const { avatar } = storeToRefs(user)
+// const { avatar } = storeToRefs(user)
 const { logout } = user
 </script>

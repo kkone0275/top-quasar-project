@@ -11,18 +11,19 @@
     {{ product.genre }}
     </q-chip>
     <p class="bc-name">參與活動費用:  $ {{ product.price }}</p>
-    <p class="bc-name">活動地點:  $ {{ product.price }}</p>
+    <p class="bc-name">活動地點:   {{ product.place }}</p>
   </div>
 
     <div class="right-item">
-      <h5 class="introduce">活動介紹圖片</h5>
+      <h5 class="introduce">揪團圖片:</h5>
       <div class="right-img">
         <img class="side-img" :src="product.images[0]">
         <img class="side-img" :src="product.images[1]">
         <img class="side-img" :src="product.images[2]">
       </div>
       <q-card class="my-card">
-      <q-card-section>
+        <h5 class="description">揪團內容:</h5>
+      <q-card-section class="set-in">
         {{ product.description }}
       </q-card-section>
       </q-card>
@@ -64,6 +65,7 @@ const product = reactive({
     product.genre = data.result.genre
     product.category = data.result.category
     product.date = data.result.date
+    product.place = data.result.place
     product.math = data.result.math
     product.image = data.result.image
     product.images = data.result.images
@@ -161,7 +163,8 @@ const addEvent = async () => {
   }
 
   .side-img{
-    width: 250px;
+    width: 280px;
+    margin-right: 20px;
   }
   .q-chip{
   width: 75px;
@@ -180,6 +183,13 @@ const addEvent = async () => {
 .introduce{
   font-weight: bold;
 }
+.description{
+  padding-top: 8px;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  font-weight: bold
+}
 
 .add-btn{
   width: 40%;
@@ -191,5 +201,10 @@ const addEvent = async () => {
   margin-left: 28%;
   color: white;
   background-color: #FF775C;
+}
+
+.set-in{
+  padding-top: 0;
+  font-size: 18px;
 }
 </style>

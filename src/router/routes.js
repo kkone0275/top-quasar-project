@@ -80,7 +80,7 @@ const routes = [
         component: () => import('src/pages/front/CartViewPage.vue'),
         meta: {
           title: '活動網站 | 購物車',
-          login: false,
+          login: true,
           admin: false
         }
       },
@@ -132,6 +132,16 @@ const routes = [
           login: true,
           admin: false
         }
+      },
+      {
+        path: 'addsuggest',
+        name: '建議蒐集',
+        component: () => import('../pages/back/AddSuggest.vue'),
+        meta: {
+          title: '建議蒐集',
+          login: true,
+          admin: false
+        }
       }
     ]
   },
@@ -153,11 +163,21 @@ const routes = [
         }
       },
       {
-        path: '/products',
+        path: '/actives',
         name: '活動上架',
-        component: () => import('../pages/back/ActivityUp.vue'),
+        component: () => import('../pages/back/ActivityUpView.vue'),
         meta: {
-          title: '活動管理',
+          title: '揪團管理',
+          login: true,
+          admin: true
+        }
+      },
+      {
+        path: '/times',
+        name: '時間上架',
+        component: () => import('../pages/back/TimeUp.vue'),
+        meta: {
+          title: '時間管理',
           login: true,
           admin: true
         }

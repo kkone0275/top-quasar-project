@@ -17,8 +17,8 @@
           <q-item clickable v-ripple class="text-center" style="background: #fff;" v-for="order in orders" :key="order._id">
             <q-item-section>{{ order._id }}</q-item-section>
             <q-item-section>{{ new Date(order.date).toLocaleDateString() }}</q-item-section>
-            <q-item-section>{{ order.products.name }}</q-item-section>
-            <q-item-section>{{ order.products.category }}</q-item-section>
+            <q-item-section>{{ order.products?.name }}</q-item-section>
+            <q-item-section>{{ order.products?.category }}</q-item-section>
 
               <!-- <q-item-section>{{ order.totalPrice }} 元</q-item-section> -->
               <!-- <ul> -->

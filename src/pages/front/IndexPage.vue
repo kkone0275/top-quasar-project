@@ -19,7 +19,7 @@
   <h1 class="title02">充滿生活樂趣</h1>
   </div>
   <div class="btn-set">
-    <q-btn class="glossy" icon-right="play_arrow" rounded color="teal-6" label="時間填空" to="/timefill"/>
+    <q-btn class="glossy" icon-right="play_arrow" rounded color="teal-6" label="空閒時間" to="/timefill"/>
     <q-btn class="glossy" icon-right="play_arrow" rounded color="deep-orange-5" label="組隊揪夥" to="/teamup" />
   </div>
   <p class="word02">

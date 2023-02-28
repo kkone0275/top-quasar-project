@@ -4,7 +4,7 @@
 
       <q-card-section>
 
-        <img class="avatar" :src="`https://source.boringavatars.com/beam/256/$%7B${name}colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
+        <img class="avatar" :src="`https://source.boringavatars.com/beam/256/{{user.name}}colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
         <div class="text-subtitle2 name">{{ name }}</div>
 
         <p class="wordpage">空閒敘述:</p>
@@ -31,7 +31,7 @@
       <q-dialog v-model="form.dialog" persistent>
         <q-card style="min-width: 600px;height: 700px;">
             <q-card-section class="flex">
-              <img class="avatar-in" :src="`https://source.boringavatars.com/beam/256/$%7B${name}colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
+              <img class="avatar-in" :src="`https://source.boringavatars.com/beam/256/{{user.name}}colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
               <div class="text-subtitle2 name-in">{{ name }}</div>
               <q-btn flat class="close-btn" round dense icon="close" v-close-popup />
               <div class="date-in"><q-icon name="schedule" />{{ date }}</div>

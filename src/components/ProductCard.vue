@@ -42,7 +42,7 @@
       <q-card-section class="q-pt-none">
 
         <!-- <q-btn class="q-px-lg" color="pink-5" :to="'/products/' + _id" label="More" @click="opendis = true" /> -->
-        <q-btn class="like" round color="deep-orange" icon="favorite" @click="editCart({_id, quantity: 1})" />
+        <q-btn class="like" round color="red-12" icon="favorite" @click="editCart({_id, quantity: 1})" />
 
       </q-card-section>
     </q-card>
@@ -109,7 +109,10 @@ defineProps({
 }
 
 .like{
-  margin-left: 135px;
+  position: absolute;
+  top: -270px;
+  right: 25px;
+  /* margin-left: 135px; */
 }
 
 </style>
